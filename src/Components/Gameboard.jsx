@@ -26,7 +26,7 @@ export default function GameBoard({ onSelected, turns }){
         <ol id="game-board">
             {gameBoard.map((row, rIndex) => (<li key={rIndex}>
                 <ol>
-                    {row.map((playerSymbol, cIndex) => (<li key={cIndex}><button onClick={() => onSelected(rIndex,cIndex)}>{playerSymbol}</button></li> ))}
+                    {row.map((playerSymbol, cIndex) => (<li key={cIndex}><button onClick={() => onSelected(rIndex,cIndex)} disabled={playerSymbol !== null}>{playerSymbol}</button></li> ))}
                 </ol>
             </li>))}
         </ol>
