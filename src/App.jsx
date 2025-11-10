@@ -2,15 +2,20 @@ import { useState } from "react"
 import Player from "./Components/Player"
 import GameBoard from "./Components/Gameboard"
 import Log from "./Components/Log";
+function deriveActivePlayer(gameTurns){
+  let currPlayer = 'X';
+  if(gameTurns.length > 0 && gameTurns[0].player === 'X'){ currPlayer = 'O'}
+  return currPlayer;
+};
 function App() {
-  const [ activePlayer, setActivePlayer ] = useState('X');
   const [ gameTurns, setGameTurns ] = useState([]);
+  // const [ activePlayer, setActivePlayer ] = useState('X');
+  let activePlayer=deriveActivePlayer(gameTurns);
+  
   function handleSelected(rIndex,cIndex){
-    setActivePlayer((currActive) => currActive === 'X' ? 'O' : 'X');
+    // setActivePlayer((currActive) => currActive === 'X' ? 'O' : 'X');
     setGameTurns(prevTurns => {
-      let currPlayer = 'X';
-
-      if(prevTurns.length > 0 && prevTurns[0].player === 'X'){ currPlayer = 'O' }
+      let currPlayer = deriveActivePlayer(prevTurns);
       
       const updatedTurns = [{ square: { row: rIndex, col: cIndex }, player: currPlayer },...prevTurns];
       
@@ -28,7 +33,7 @@ function App() {
         </ol>
         <GameBoard onSelected={handleSelected} turns={gameTurns} />
       </div>
-      <Log />
+      <Log turns={gameTurns}/>
     </main>
   )
 }
