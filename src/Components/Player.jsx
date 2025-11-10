@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
-export default function PLayer({initialName, symbol}){
+export default function PLayer({initialName, symbol, isActive}){
     const [ playerName, setPlayerName ] = useState(initialName)
     const [ isEditing, setIsEditing ] = useState(false);
-    playerName
     function edit(){
         setIsEditing(isEditing => !isEditing);
     };
@@ -13,7 +12,7 @@ export default function PLayer({initialName, symbol}){
     };
     let nameHolder= isEditing ? <input type="text" required value={playerName} onChange={handleChange}/> : <span className="player-name">{playerName}</span>;
     return(
-        <li>
+        <li className={isActive ? 'active' : undefined}>
             <span className="player">
                 {nameHolder}
                 <span className="player-symbol">{symbol}</span>
